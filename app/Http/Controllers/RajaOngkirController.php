@@ -10,7 +10,7 @@ class RajaOngkirController extends Controller
     {
         $destination = $request->destination;
         $courier = $request->courier;
-        $response = Http::withHeaders(['key'=>'53c60093042d2223a474dac021ede4a8'])->post('https://api.rajaongkir.com/starter/cost',[
+        $response = Http::withHeaders(['key'=>env('API_KEY_RAJAONGKIR')])->post(env('API_COST_RAJAONGKIR'),[
             "origin"=>  501,
             "destination"=> $destination,
             "weight"=> 1000,
@@ -37,7 +37,7 @@ class RajaOngkirController extends Controller
     }
     public function provinces()
     {
-        $response = Http::withHeaders(['key'=>'53c60093042d2223a474dac021ede4a8'])->get('https://api.rajaongkir.com/starter/province');
+        $response = Http::withHeaders(['key'=>env('API_KEY_RAJAONGKIR')])->get(env('API_PROVINCE_RAJAONGKIR'));
   
         $check = $response->json();
         $provinces = $check['rajaongkir']['results'];
@@ -46,8 +46,7 @@ class RajaOngkirController extends Controller
     }
     public function cities($id)
     {
-       
-        $response = Http::withHeaders(['key'=>'53c60093042d2223a474dac021ede4a8'])->get('https://api.rajaongkir.com/starter/city',
+        $response = Http::withHeaders(['key'=>env('API_KEY_RAJAONGKIR')])->get(env('API_CITY_RAJAONGKIR'),
     [
         'province'=>$id
     ]);
