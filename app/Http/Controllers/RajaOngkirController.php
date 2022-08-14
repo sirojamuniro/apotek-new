@@ -10,14 +10,16 @@ class RajaOngkirController extends Controller
     {
         $destination = $request->destination;
         $courier = $request->courier;
-        $response = Http::withHeaders(['key'=>'320a8cc242375f3a230db7950ee0b8ec'])->post('https://api.rajaongkir.com/starter/cost',[
+        $check = Http::withHeaders(['key'=>'320a8cc242375f3a230db7950ee0b8ec'])->post('https://api.rajaongkir.com/starter/cost',[
             "origin"=>  501,
             "destination"=> $destination,
             "weight"=> 1000,
             "courier"=>  $courier,
         ]);
-    
-        return $response->json();
+        // DD($response->json());
+        $json = $check->json();
+        $result = $json['rajaongkir']['results'];
+        return $result;
     }
     public function courier(Request $request)
     {
@@ -53,7 +55,7 @@ class RajaOngkirController extends Controller
     $check = $response->json();
    
     $city = $check['rajaongkir']['results'];
-    
-    return collect($city);
+        
+    return response()->json(['city'=>$city]);
     }
 }
