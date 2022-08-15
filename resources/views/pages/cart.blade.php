@@ -83,6 +83,7 @@
           <form action="{{ route('checkout') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="total_price" id="total_price" value="{{ $totalPrice }}">
+            <input type="hidden" name="ship_total" id="ship_total" value="">
             <div class="row mb-2" data-aos="fade-up" data-aos-delay="200" id="locations">
               <div class="col-md-6">
                 <div class="form-group">
@@ -292,6 +293,7 @@
             let formatPayment = parseFloat(totalPayment);
             document.getElementById('grand_total').innerHTML = `Rp. ${formatPayment}`
             document.getElementById('total_price').value = formatPayment
+            document.getElementById('ship_total').value = formatCost
           }
         },
         watch: {
@@ -301,7 +303,7 @@
             
           },
           courier_code:function(val,oldVal){
-            this.costs = null
+           
             this.checkOngkir()
           },
           costService:function(val,oldVal){
